@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.Packaging
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -7,7 +9,6 @@ plugins {
 android {
     namespace = "com.example.gemstore"
     compileSdk = 35
-
     defaultConfig {
         applicationId = "com.example.gemstore"
         minSdk = 29
@@ -45,9 +46,10 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/*"
         }
     }
+
 }
 
 dependencies {

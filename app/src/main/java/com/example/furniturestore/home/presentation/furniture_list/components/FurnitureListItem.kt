@@ -54,10 +54,10 @@ fun FurnitureListItem(
             .fillMaxWidth()
             .padding(8.dp)
             .clickable { onClick() }
-            .height(280.dp)
+            .height(300.dp)
     ) {
         AsyncImage(
-            modifier = Modifier.fillMaxWidth().height(200.dp).clip(RoundedCornerShape(10.dp)),
+            modifier = Modifier.fillMaxWidth().height(230.dp).clip(RoundedCornerShape(10.dp)),
             model = R.drawable.test_image,
             contentDescription = furnitureUi.name,
             contentScale = ContentScale.Crop
@@ -72,6 +72,9 @@ fun FurnitureListItem(
             color = contentColor,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
+        )
+        Spacer(
+            modifier = Modifier.size(10.dp)
         )
         Text(
             text = "$ ${furnitureUi.price}",
