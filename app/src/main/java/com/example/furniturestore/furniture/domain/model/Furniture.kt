@@ -1,4 +1,4 @@
-package com.example.furniturestore.home.domain.model
+package com.example.furniturestore.furniture.domain.model
 
 data class Furniture(
     val id:String,

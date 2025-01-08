@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serializaion)
 }
 
 android {
@@ -23,12 +24,16 @@ android {
     }
 
     buildTypes {
+        debug{
+            buildConfigField("String","BASE_URL","\"https://furniture-api.fly.dev/v1/\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String","BASE_URL","\"https://furniture-api.fly.dev/v1/\"")
         }
     }
     compileOptions {
@@ -39,6 +44,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
@@ -54,13 +60,16 @@ android {
 
 dependencies {
     //ktor
-    implementation(libs.ktor.server.core)
-    implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.ktor.client.logging)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
     //coil
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
     //koin
-    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

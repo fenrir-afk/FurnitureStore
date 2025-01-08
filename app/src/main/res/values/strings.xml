@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">FurnitureStore</string>
+    <string name="rate_limit_exceeded">All requests have been exhausted</string>
+    <string name="invalid_request_params">Invalid request params</string>
+    <string name="resource_not_found">Resource is not found</string>
+    <string name="server_error">Internal server error</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="serialization">Serialization problems</string>
+    <string name="too_many_requests">Too monay requests</string>
+    <string name="request_time_out">Request time out</string>
+    <string name="unknown">Unknown error</string>
 </resources>

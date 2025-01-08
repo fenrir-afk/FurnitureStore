@@ -1,4 +1,4 @@
-package com.example.furniturestore.util
+package com.example.furniturestore.core.domain.util
 
 typealias DomainError = Error
 
