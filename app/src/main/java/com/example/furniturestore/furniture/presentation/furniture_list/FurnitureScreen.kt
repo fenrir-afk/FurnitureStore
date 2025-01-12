@@ -1,6 +1,5 @@
 package com.example.furniturestore.furniture.presentation.furniture_list
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -35,7 +34,7 @@ fun FurnitureScreen(
         }
     }else{
         LazyVerticalStaggeredGrid(
-            columns = StaggeredGridCells.Fixed(2),  // 2 столбца
+            columns = StaggeredGridCells.Fixed(2),  // 2 columns
             modifier = modifier,
             contentPadding = PaddingValues(8.dp),
             state = rememberLazyStaggeredGridState()
