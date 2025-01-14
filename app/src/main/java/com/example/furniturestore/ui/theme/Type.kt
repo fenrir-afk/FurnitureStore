@@ -28,6 +28,10 @@ val Coats = FontFamily(
         weight = FontWeight.Bold,
         style = FontStyle.Italic
     ),
+    Font(
+        resId = R.font.thin,
+        weight = FontWeight.Thin,
+    ),
 )
 val Typography = Typography(
     bodySmall = TextStyle(

@@ -14,9 +14,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.furniturestore.core.presentation.ObserveAsEvents
 import com.example.furniturestore.core.presentation.toString
+import com.example.furniturestore.furniture.presentation.furniture_detail.FurnitureDetailScreen
 import com.example.furniturestore.furniture.presentation.furniture_list.FurnitureListEvent
 import com.example.furniturestore.furniture.presentation.furniture_list.FurnitureListViewModel
 import com.example.furniturestore.furniture.presentation.furniture_list.FurnitureScreen
+import com.example.furniturestore.furniture.presentation.furniture_list.components.furniture
 import com.example.furniturestore.ui.theme.FurnitureTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -41,10 +43,10 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     }
-                    FurnitureScreen(
-                        state = state,
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                   FurnitureDetailScreen(
+                       modifier = Modifier.padding(innerPadding),
+                       furniture = furniture
+                   )
                 }
             }
         }
