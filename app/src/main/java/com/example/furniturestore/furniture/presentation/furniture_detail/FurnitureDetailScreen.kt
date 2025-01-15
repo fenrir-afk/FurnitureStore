@@ -15,6 +15,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,16 +25,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.example.furniturestore.furniture.domain.model.Furniture
+import com.example.furniturestore.furniture.presentation.furniture_detail.components.BuyButton
+import com.example.furniturestore.furniture.presentation.furniture_detail.components.FurnitureCounter
 import com.example.furniturestore.furniture.presentation.furniture_list.components.furniture
 import com.example.furniturestore.ui.theme.FurnitureTheme
 import com.example.furniturestore.ui.theme.darkGreen
@@ -56,6 +58,12 @@ fun FurnitureDetailScreen(
             contentDescription = furniture.name,
             contentScale = ContentScale.Crop,
             alignment = Alignment.Center
+        )
+        Icon(
+            modifier = Modifier.padding(20.dp).height(35.dp).width(35.dp).align(Alignment.TopStart),
+            tint = Color.White,
+            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+            contentDescription = "Back"
         )
         Column(
             modifier = Modifier
@@ -117,6 +125,20 @@ fun FurnitureDetailScreen(
                 color = contentColor,
                 fontSize = 18.sp
             )
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(20.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                FurnitureCounter(
+                    modifier = Modifier.weight(1f),
+                    onMinusClick = {},
+                    onPlusClick = {},
+                    value = 1
+                )
+                BuyButton(
+                    modifier = Modifier.padding(5.dp).weight(1f)
+                )
+            }
         }
     }
 }
