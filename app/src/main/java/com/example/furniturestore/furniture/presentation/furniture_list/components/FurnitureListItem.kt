@@ -33,7 +33,7 @@ import com.example.gemstore.R
 @Composable
 fun FurnitureListItem(
     furnitureUi: Furniture,
-    onClick: () -> Unit,
+    onClick: (Furniture) -> Unit,
     modifier: Modifier = Modifier
 ){
     val contentColor = if(isSystemInDarkTheme()){
@@ -45,7 +45,7 @@ fun FurnitureListItem(
         modifier = modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { onClick() }
+            .clickable { onClick(furnitureUi) }
             .height(330.dp)
     ) {
         AsyncImage(

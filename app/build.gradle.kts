@@ -70,6 +70,8 @@ dependencies {
     implementation(libs.coil.network.okhttp)
     //koin
     implementation(libs.koin.androidx.compose)
+    //navigation
+    implementation(libs.androidx.navigation.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -18,12 +18,14 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.furniturestore.furniture.domain.model.Furniture
 import com.example.furniturestore.furniture.presentation.furniture_list.components.FurnitureListItem
+import com.example.furniturestore.furniture.presentation.furniture_list.components.furniture
 import com.example.furniturestore.ui.theme.FurnitureTheme
 
 @Composable
 fun FurnitureScreen(
     state:FurnitureListState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    obClick: (Furniture) -> Unit
 ) {
     if(state.isLoading){
         Box(
@@ -42,7 +44,7 @@ fun FurnitureScreen(
             items(state.furnitureItems) {item ->
                 FurnitureListItem(
                     furnitureUi = item,
-                    onClick = {},
+                    onClick = {obClick(item)},
                     modifier = Modifier
                         .fillMaxWidth(0.5f)
                         .background(
@@ -80,6 +82,7 @@ fun FurnitureListPreview(modifier: Modifier = Modifier) {
             state = FurnitureListState(
                 furnitureItems = arr
             ),
+            obClick = { furniture}
         )
     }
 }

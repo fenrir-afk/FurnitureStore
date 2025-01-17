@@ -33,7 +33,9 @@ class FurnitureListViewModel(
     fun onAction(action: FurnitureListActions){
         when(action){
             is FurnitureListActions.OnItemClick -> {
-
+                _state.update { it.copy(
+                    selectedItem = action.item
+                ) }
             }
         }
     }
