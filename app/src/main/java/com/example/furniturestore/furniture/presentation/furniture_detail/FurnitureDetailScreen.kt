@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -44,11 +45,6 @@ fun FurnitureDetailScreen(
     modifier: Modifier = Modifier,
     furniture: Furniture
 ) {
-    val contentColor = if(isSystemInDarkTheme()){
-        Color.White
-    }else{
-        Color.Black
-    }
     Box(
         modifier = modifier.fillMaxSize()
     ){
@@ -91,7 +87,7 @@ fun FurnitureDetailScreen(
                 Text(
                     modifier = Modifier.fillMaxHeight().weight(3f),
                     text = furniture.name,
-                    color = contentColor,
+                    color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Light,
                     fontSize = 29.sp
                 )
@@ -103,7 +99,7 @@ fun FurnitureDetailScreen(
                     Text(
                         text = "$" + furniture.price,
                         fontWeight = FontWeight.Light,
-                        color = contentColor,
+                        color = MaterialTheme.colorScheme.primary,
                         fontSize = 13.sp,
                         textDecoration = TextDecoration.LineThrough
                     )
@@ -123,7 +119,7 @@ fun FurnitureDetailScreen(
                 ),
                 text = furniture.description,
                 fontWeight = FontWeight.Thin,
-                color = contentColor,
+                color = MaterialTheme.colorScheme.primary,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 7,
                 fontSize = 18.sp

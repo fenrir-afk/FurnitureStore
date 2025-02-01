@@ -1,21 +1,31 @@
 package com.example.furniturestore.furniture.presentation.furniture_list
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.furniturestore.furniture.domain.model.Furniture
 import com.example.furniturestore.furniture.presentation.furniture_list.components.FurnitureListItem
 import com.example.furniturestore.furniture.presentation.furniture_list.components.furniture
@@ -27,6 +37,11 @@ fun FurnitureScreen(
     modifier: Modifier = Modifier,
     obClick: (Furniture) -> Unit
 ) {
+    val contentColor = if(isSystemInDarkTheme()){
+        Color.White
+    }else{
+        Color.Black
+    }
     if(state.isLoading){
         Box(
             modifier = modifier.fillMaxSize(),
@@ -41,6 +56,30 @@ fun FurnitureScreen(
             contentPadding = PaddingValues(8.dp),
             state = rememberLazyStaggeredGridState()
         ){
+            item {
+                Column(
+                    modifier = Modifier.padding(vertical = 15.dp, horizontal = 5.dp)
+                ){
+                    Text(
+                        modifier = Modifier.padding(bottom = 5.dp),
+                        text = "Furniture items",
+                        fontSize = 25.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = contentColor,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        text = "All products are made from the best natural materials.",
+                        fontWeight = FontWeight.Normal,
+                        color = contentColor,
+                        fontStyle = FontStyle.Italic,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 4,
+                        fontSize = 16.sp
+                    )
+                }
+            }
             items(state.furnitureItems) {item ->
                 FurnitureListItem(
                     furnitureUi = item,

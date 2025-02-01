@@ -36,15 +36,10 @@ fun FurnitureListItem(
     onClick: (Furniture) -> Unit,
     modifier: Modifier = Modifier
 ){
-    val contentColor = if(isSystemInDarkTheme()){
-        Color.White
-    }else{
-        Color.Black
-    }
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(start = 5.dp, end = 10.dp)
             .clickable { onClick(furnitureUi) }
             .height(330.dp)
     ) {
@@ -61,7 +56,7 @@ fun FurnitureListItem(
             text = furnitureUi.name,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
-            color = contentColor,
+            color = MaterialTheme.colorScheme.primary,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )

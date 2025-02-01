@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.furniturestore.core.domain.util.onError
 import com.example.furniturestore.core.domain.util.onSuccess
 import com.example.furniturestore.furniture.domain.dataSource.FurnitureDataSource
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
