@@ -5,6 +5,7 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,7 +26,8 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun FurnitureNavigation(
     modifier: Modifier = Modifier,
-    viewModel:FurnitureListViewModel = koinViewModel()
+    topBarState: MutableState<Float>,
+    viewModel: FurnitureListViewModel = koinViewModel()
 ) {
     val navController = rememberNavController()
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -49,6 +51,7 @@ fun FurnitureNavigation(
                 exitTransition = { slideOutHorizontally() },
                 popEnterTransition = { slideInHorizontally() }
             ) {
+                topBarState.value = 1f
                 FurnitureScreen(
                     modifier = modifier,
                     state = state,
@@ -66,6 +69,7 @@ fun FurnitureNavigation(
                     initialOffset
                 } }
             ) {
+                topBarState.value = 0f
                 FurnitureDetailScreen(
                     modifier = Modifier.fillMaxSize(),
                     furniture = state.selectedItem!!,

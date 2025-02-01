@@ -57,7 +57,7 @@ fun FurnitureDetailScreen(
             alignment = Alignment.Center
         )
         Icon(
-            modifier = Modifier.padding(20.dp).height(35.dp).width(35.dp).align(Alignment.TopStart),
+            modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 40.dp).height(35.dp).width(35.dp).align(Alignment.TopStart),
             tint = Color.White,
             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
             contentDescription = "Back"

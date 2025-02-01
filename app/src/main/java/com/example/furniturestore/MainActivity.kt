@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,13 +15,15 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.Modifier
 import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.IconButton
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
@@ -36,10 +37,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FurnitureTheme {
+                val topBarState = rememberSaveable { (mutableFloatStateOf(1f)) }
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     topBar = {
                         TopAppBar(
+                            modifier = Modifier.alpha(topBarState.floatValue),
                             title= { Text(
                                 text = "Furniture app",
                                 fontWeight = FontWeight.Normal,
@@ -62,7 +65,8 @@ class MainActivity : ComponentActivity() {
                     },
                 ){innerPadding ->
                     FurnitureNavigation(
-                        modifier = Modifier.fillMaxSize().padding(innerPadding)
+                        modifier = Modifier.fillMaxSize().padding(innerPadding),
+                        topBarState
                     )
                 }
             }
