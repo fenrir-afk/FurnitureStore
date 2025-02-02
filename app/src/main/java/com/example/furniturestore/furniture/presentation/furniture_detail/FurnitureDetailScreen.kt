@@ -1,7 +1,7 @@
 package com.example.furniturestore.furniture.presentation.furniture_detail
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -18,9 +18,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,6 +37,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import coil3.compose.AsyncImage
 import com.example.furniturestore.furniture.domain.model.Furniture
 import com.example.furniturestore.furniture.presentation.furniture_detail.components.BuyButton
@@ -43,8 +49,10 @@ import com.example.furniturestore.ui.theme.darkGreen
 @Composable
 fun FurnitureDetailScreen(
     modifier: Modifier = Modifier,
-    furniture: Furniture
+    furniture: Furniture,
+    onBackClick:()->Unit
 ) {
+    var counterState by remember { mutableIntStateOf(1)}
     Box(
         modifier = modifier.fillMaxSize()
     ){
@@ -56,12 +64,18 @@ fun FurnitureDetailScreen(
             contentScale = ContentScale.Crop,
             alignment = Alignment.Center
         )
-        Icon(
-            modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 40.dp).height(35.dp).width(35.dp).align(Alignment.TopStart),
-            tint = Color.White,
-            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-            contentDescription = "Back"
-        )
+        IconButton(
+            modifier = Modifier.padding(start = 20.dp, top = 80.dp),
+            onClick = {
+            onBackClick()
+        }){
+            Icon(
+                modifier = Modifier.height(50.dp).width(50.dp),
+                tint = Color.White,
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = "Back"
+            )
+        }
         Column(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -70,11 +84,7 @@ fun FurnitureDetailScreen(
                 .clip(RoundedCornerShape(
                     topStart = 20.dp,
                     topEnd = 20.dp
-                )).background(if(isSystemInDarkTheme()){
-                    Color.Black
-                }else{
-                    Color.White
-                })
+                )).background(MaterialTheme.colorScheme.background)
         ){
             Row(
                 modifier = Modifier
@@ -130,9 +140,9 @@ fun FurnitureDetailScreen(
             ){
                 FurnitureCounter(
                     modifier = Modifier.weight(1f),
-                    onMinusClick = {},
-                    onPlusClick = {},
-                    value = 1
+                    onMinusClick = { --counterState },
+                    onPlusClick = {++counterState},
+                    value = counterState
                 )
                 BuyButton(
                     modifier = Modifier.padding(5.dp).weight(1f)
@@ -147,6 +157,6 @@ fun FurnitureDetailScreenPreview() {
     FurnitureTheme {
         FurnitureDetailScreen(
             furniture = furniture
-        )
+        ){}
     }
 }

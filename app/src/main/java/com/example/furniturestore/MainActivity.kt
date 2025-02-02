@@ -19,9 +19,7 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.font.FontWeight
@@ -66,7 +64,7 @@ class MainActivity : ComponentActivity() {
                 ){innerPadding ->
                     FurnitureNavigation(
                         modifier = Modifier.fillMaxSize().padding(innerPadding),
-                        topBarState
+                        topBarState = topBarState //alpha
                     )
                 }
             }

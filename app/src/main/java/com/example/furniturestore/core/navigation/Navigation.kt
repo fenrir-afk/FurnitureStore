@@ -1,6 +1,7 @@
 package com.example.furniturestore.core.navigation
 
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.fillMaxSize
@@ -73,6 +74,9 @@ fun FurnitureNavigation(
                 FurnitureDetailScreen(
                     modifier = Modifier.fillMaxSize(),
                     furniture = state.selectedItem!!,
+                    onBackClick = {
+                        navController.navigate(Route.FurnitureList)
+                    }
                 )
             }
         }
