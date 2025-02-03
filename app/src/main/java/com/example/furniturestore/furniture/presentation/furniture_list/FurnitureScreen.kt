@@ -1,5 +1,7 @@
 package com.example.furniturestore.furniture.presentation.furniture_list
 
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -31,6 +33,7 @@ import com.example.furniturestore.furniture.presentation.furniture_list.componen
 import com.example.furniturestore.furniture.presentation.furniture_list.components.furniture
 import com.example.furniturestore.ui.theme.FurnitureTheme
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FurnitureScreen(
     state:FurnitureListState,

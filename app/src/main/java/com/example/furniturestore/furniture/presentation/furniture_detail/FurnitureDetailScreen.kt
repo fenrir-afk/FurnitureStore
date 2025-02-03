@@ -65,12 +65,12 @@ fun FurnitureDetailScreen(
             alignment = Alignment.Center
         )
         IconButton(
-            modifier = Modifier.padding(start = 20.dp, top = 80.dp),
+            modifier = Modifier.padding(start = 20.dp, top = 85.dp),
             onClick = {
             onBackClick()
         }){
             Icon(
-                modifier = Modifier.height(50.dp).width(50.dp),
+                modifier = Modifier.height(60.dp).width(60.dp),
                 tint = Color.White,
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = "Back"
@@ -140,7 +140,7 @@ fun FurnitureDetailScreen(
             ){
                 FurnitureCounter(
                     modifier = Modifier.weight(1f),
-                    onMinusClick = { --counterState },
+                    onMinusClick = { if(counterState > 0) --counterState },
                     onPlusClick = {++counterState},
                     value = counterState
                 )
