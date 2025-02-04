@@ -1,13 +1,16 @@
 package com.example.furniturestore.core.navigation
 
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.Surface
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -22,12 +25,14 @@ import com.example.furniturestore.furniture.presentation.furniture_list.Furnitur
 import com.example.furniturestore.furniture.presentation.furniture_list.FurnitureListEvent
 import com.example.furniturestore.furniture.presentation.furniture_list.FurnitureListViewModel
 import com.example.furniturestore.furniture.presentation.furniture_list.FurnitureScreen
+import com.example.furniturestore.furniture.presentation.furniture_list.components.NavDrawer
+import com.example.furniturestore.furniture.presentation.furniture_list.components.ScaffoldFun
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun FurnitureNavigation(
     modifier: Modifier = Modifier,
-    topBarState: MutableState<Float>,
     viewModel: FurnitureListViewModel = koinViewModel()
 ) {
     val navController = rememberNavController()
@@ -44,42 +49,58 @@ fun FurnitureNavigation(
             }
         }
     }
-    NavHost(navController = navController, startDestination = Route.FurnitureGraph) {
-        navigation<Route.FurnitureGraph>(
-            startDestination = Route.FurnitureList
-        ){
-            composable<Route.FurnitureList>(
-                exitTransition = { slideOutHorizontally() },
-                popEnterTransition = { slideInHorizontally() }
+    Surface(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        NavHost(navController = navController, startDestination = Route.FurnitureGraph) {
+            navigation<Route.FurnitureGraph>(
+                startDestination = Route.FurnitureList
             ) {
-                topBarState.value = 1f
-                FurnitureScreen(
-                    modifier = modifier,
-                    state = state,
-                    obClick = {selectedItem ->
-                        viewModel.onAction(FurnitureListActions.OnItemClick(item = selectedItem))
-                        navController.navigate(Route.FurnitureDetail)
+                composable<Route.FurnitureList>(
+                    exitTransition = { slideOutHorizontally() },
+                    popEnterTransition = { slideInHorizontally() }
+                ) {
+                    val drawerState = rememberDrawerState(DrawerValue.Closed)
+                    NavDrawer(
+                        drawerState = drawerState
+                    ){
+                        ScaffoldFun(
+                            modifier = Modifier,
+                            drawerState = drawerState,
+                            content = { innerPadding ->
+                                FurnitureScreen(
+                                    modifier = modifier.padding(innerPadding),
+                                    state = state,
+                                    obClick = { selectedItem ->
+                                        viewModel.onAction(FurnitureListActions.OnItemClick(item = selectedItem))
+                                        navController.navigate(Route.FurnitureDetail)
+                                    }
+                                )
+                            }
+                        )
                     }
-                )
-            }
-            composable<Route.FurnitureDetail>(
-                enterTransition = { slideInHorizontally { initialOffset ->
-                    initialOffset
-                } },
-                exitTransition = { slideOutHorizontally { initialOffset ->
-                    initialOffset
-                } }
-            ) {
-                topBarState.value = 0f
-                FurnitureDetailScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    furniture = state.selectedItem!!,
-                    onBackClick = {
-                        navController.navigate(Route.FurnitureList)
+                }
+                composable<Route.FurnitureDetail>(
+                    enterTransition = {
+                        slideInHorizontally { initialOffset ->
+                            initialOffset
+                        }
+                    },
+                    exitTransition = {
+                        slideOutHorizontally { initialOffset ->
+                            initialOffset
+                        }
                     }
-                )
+                ) {
+                    FurnitureDetailScreen(
+                        modifier = Modifier.fillMaxSize(),
+                        furniture = state.selectedItem!!,
+                        onBackClick = {
+                            navController.navigate(Route.FurnitureList)
+                        }
+                    )
+                }
             }
         }
     }
-
 }

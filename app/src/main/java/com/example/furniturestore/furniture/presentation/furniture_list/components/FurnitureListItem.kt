@@ -1,11 +1,7 @@
 package com.example.furniturestore.furniture.presentation.furniture_list.components
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
-import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,16 +24,12 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import coil3.compose.rememberAsyncImagePainter
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.furniturestore.furniture.domain.model.Furniture
 import com.example.furniturestore.ui.theme.FurnitureTheme
 import com.example.furniturestore.ui.theme.darkGreen
-import com.example.gemstore.R
 
-
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FurnitureListItem(
     furnitureUi: Furniture,
