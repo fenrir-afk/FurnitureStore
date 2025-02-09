@@ -15,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -30,8 +29,7 @@ fun ScaffoldFun(
     modifier: Modifier = Modifier,
     drawerState: DrawerState,
     content: @Composable (innerPadding: PaddingValues) -> Unit,
-    dropDownMenuState: MutableState<Boolean>,
-    onDropDownMenuItemCLick: (FurnitureCategories) -> Unit,
+    onDropDownMenuItemCLick: (FurnitureCategories) -> Unit
 ) {
     val scope = rememberCoroutineScope()
     Scaffold(

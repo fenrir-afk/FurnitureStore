@@ -39,7 +39,6 @@ fun FurnitureNavigation(
     val navController = rememberNavController()
     val state by viewModel.state.collectAsStateWithLifecycle() // screen state
     val drawerState = rememberDrawerState(DrawerValue.Closed) // state of side menu
-    val expanded = remember { mutableStateOf(false) } //state of dropDownMenu
     val context = LocalContext.current
     ObserveAsEvents(events = viewModel.event) {event ->
         when(event){
@@ -69,7 +68,6 @@ fun FurnitureNavigation(
                         ScaffoldFun(
                             modifier = Modifier,
                             drawerState = drawerState,
-                            dropDownMenuState = expanded,
                             onDropDownMenuItemCLick = { category:FurnitureCategories ->
                                 viewModel.loadFurnitureItems(category)
                             },
