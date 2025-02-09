@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.DrawerState
-import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -16,14 +14,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberBottomSheetScaffoldState
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
+import com.example.furniturestore.core.presentation.util.FurnitureCategories
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,6 +30,8 @@ fun ScaffoldFun(
     modifier: Modifier = Modifier,
     drawerState: DrawerState,
     content: @Composable (innerPadding: PaddingValues) -> Unit,
+    dropDownMenuState: MutableState<Boolean>,
+    onDropDownMenuItemCLick: (FurnitureCategories) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     Scaffold(
@@ -55,7 +55,9 @@ fun ScaffoldFun(
                 },
                 actions={
                     IconButton({ }) { Icon(Icons.Filled.Info, contentDescription = "About app") }
-                    IconButton({ }) { Icon(Icons.Filled.Search, contentDescription = "Search") }
+                    CustomDropDownMenu{categories ->
+                        onDropDownMenuItemCLick(categories)
+                    }
                 },
                 colors= TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,

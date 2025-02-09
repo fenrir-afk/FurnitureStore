@@ -4,9 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.furniturestore.core.domain.util.onError
 import com.example.furniturestore.core.domain.util.onSuccess
+import com.example.furniturestore.core.presentation.util.FurnitureCategories
 import com.example.furniturestore.furniture.domain.dataSource.FurnitureDataSource
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -22,7 +21,7 @@ class FurnitureListViewModel(
     private val _state = MutableStateFlow(FurnitureListState())
     val state = _state.
         onStart {
-            loadFurnitureItems()
+            loadFurnitureItems(_state.value.category)
         }.stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000L),
@@ -41,14 +40,21 @@ class FurnitureListViewModel(
             }
         }
     }
-    fun loadFurnitureItems(category: String = "Lamp"){
+    fun loadFurnitureItems(category: FurnitureCategories){
         viewModelScope.launch {
-            if(state.value.offset == 0){
+            if(state.value.category != category){
+                _state.update { it.copy(
+                    category = category,
+                    offset = 0,
+                    isLoading = true,
+                    furnitureItems = emptyList()
+                ) }
+            }else if(state.value.offset == 0){
                 _state.update { it.copy(
                     isLoading = true
                 ) }
             }
-            furnitureDataSource.getFurnitureItems(state.value.offset,category).onSuccess { items->
+            furnitureDataSource.getFurnitureItems(state.value.offset,category.name).onSuccess { items->
                 _state.update {
                     it.copy(
                         isLoading = false,
