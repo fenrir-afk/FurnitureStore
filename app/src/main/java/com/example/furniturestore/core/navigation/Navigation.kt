@@ -71,9 +71,12 @@ fun FurnitureNavigation(
                                 FurnitureScreen(
                                     modifier = modifier.padding(innerPadding),
                                     state = state,
-                                    obClick = { selectedItem ->
+                                    onItemClick = { selectedItem ->
                                         viewModel.onAction(FurnitureListActions.OnItemClick(item = selectedItem))
                                         navController.navigate(Route.FurnitureDetail)
+                                    },
+                                    onContinueClick = {
+                                        viewModel.loadFurnitureItems()
                                     }
                                 )
                             }

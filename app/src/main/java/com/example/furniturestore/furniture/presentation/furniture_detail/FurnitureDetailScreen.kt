@@ -1,7 +1,6 @@
 package com.example.furniturestore.furniture.presentation.furniture_detail
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -37,7 +36,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.zIndex
 import coil3.compose.AsyncImage
 import com.example.furniturestore.furniture.domain.model.Furniture
 import com.example.furniturestore.furniture.presentation.furniture_detail.components.BuyButton
@@ -65,7 +63,7 @@ fun FurnitureDetailScreen(
             alignment = Alignment.Center
         )
         IconButton(
-            modifier = Modifier.padding(start = 20.dp, top = 85.dp),
+            modifier = Modifier.padding(start = 20.dp, top = 65.dp),
             onClick = {
             onBackClick()
         }){

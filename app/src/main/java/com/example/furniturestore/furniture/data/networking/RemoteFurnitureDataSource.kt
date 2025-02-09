@@ -15,10 +15,10 @@ import io.ktor.client.request.get
 class RemoteFurnitureDataSource(
     private val httpClient: HttpClient
 ):FurnitureDataSource {
-    override suspend fun getFurnitureItems(): Result<List<Furniture>, NetworkError> {
+    override suspend fun getFurnitureItems(offset:Int,category:String): Result<List<Furniture>, NetworkError> {
         return safeCall<FurnitureResponseDto>{
             httpClient.get(
-                urlString = constructUrl("/products")
+                urlString = constructUrl("/products?offset=$offset&name=$category")
             )
         }.map { response ->
             response.data.map { it.toFurniture() }

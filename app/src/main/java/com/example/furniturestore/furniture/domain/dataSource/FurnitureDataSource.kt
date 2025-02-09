@@ -5,5 +5,5 @@ import com.example.furniturestore.core.domain.util.NetworkError
 import com.example.furniturestore.core.domain.util.Result
 
 interface FurnitureDataSource {
-    suspend fun getFurnitureItems():Result<List<Furniture>,NetworkError>
+    suspend fun getFurnitureItems(offset:Int,category:String):Result<List<Furniture>,NetworkError>
 }

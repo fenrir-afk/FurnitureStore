@@ -1,9 +1,6 @@
 package com.example.furniturestore.furniture.presentation.furniture_list
 
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,8 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -29,22 +24,18 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.furniturestore.furniture.domain.model.Furniture
+import com.example.furniturestore.furniture.presentation.furniture_list.components.CustomButton
 import com.example.furniturestore.furniture.presentation.furniture_list.components.FurnitureListItem
 import com.example.furniturestore.furniture.presentation.furniture_list.components.furniture
 import com.example.furniturestore.ui.theme.FurnitureTheme
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FurnitureScreen(
     state:FurnitureListState,
     modifier: Modifier = Modifier,
-    obClick: (Furniture) -> Unit
+    onItemClick: (Furniture) -> Unit,
+    onContinueClick:()->Unit
 ) {
-    val contentColor = if(isSystemInDarkTheme()){
-        Color.White
-    }else{
-        Color.Black
-    }
     if(state.isLoading){
         Box(
             modifier = modifier.fillMaxSize(),
@@ -68,14 +59,14 @@ fun FurnitureScreen(
                         text = "Furniture items",
                         fontSize = 25.sp,
                         fontWeight = FontWeight.Bold,
-                        color = contentColor,
+                        color = MaterialTheme.colorScheme.primary,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
                         text = "All products are made from the best natural materials.",
                         fontWeight = FontWeight.Normal,
-                        color = contentColor,
+                        color = MaterialTheme.colorScheme.primary,
                         fontStyle = FontStyle.Italic,
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 4,
@@ -86,13 +77,21 @@ fun FurnitureScreen(
             items(state.furnitureItems) {item ->
                 FurnitureListItem(
                     furnitureUi = item,
-                    onClick = {obClick(item)},
+                    onClick = {onItemClick(item)},
                     modifier = Modifier
                         .fillMaxWidth(0.5f)
                         .background(
                             MaterialTheme.colorScheme.background
                         )
                 )
+            }
+            item {
+                CustomButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = "Continue"
+                ){
+                    onContinueClick()
+                }
             }
         }
     }
@@ -124,7 +123,8 @@ fun FurnitureListPreview(modifier: Modifier = Modifier) {
             state = FurnitureListState(
                 furnitureItems = arr
             ),
-            obClick = { furniture}
+            onItemClick = {furniture},
+            onContinueClick = {}
         )
     }
 }

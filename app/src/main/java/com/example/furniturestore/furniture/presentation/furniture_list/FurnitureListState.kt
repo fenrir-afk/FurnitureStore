@@ -7,5 +7,6 @@ import com.example.furniturestore.furniture.domain.model.Furniture
 data class FurnitureListState(
     val isLoading:Boolean = false,
     val furnitureItems:List<Furniture> = emptyList(),
-    val selectedItem:Furniture? = null
+    val selectedItem:Furniture? = null,
+    val offset:Int = 0
 )

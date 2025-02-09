@@ -41,17 +41,19 @@ class FurnitureListViewModel(
             }
         }
     }
-    private fun loadFurnitureItems(){
+    fun loadFurnitureItems(category: String = "Lamp"){
         viewModelScope.launch {
-            _state.update { it.copy(
-                isLoading = true
-            ) }
-
-            furnitureDataSource.getFurnitureItems().onSuccess { items->
+            if(state.value.offset == 0){
+                _state.update { it.copy(
+                    isLoading = true
+                ) }
+            }
+            furnitureDataSource.getFurnitureItems(state.value.offset,category).onSuccess { items->
                 _state.update {
                     it.copy(
                         isLoading = false,
-                        furnitureItems = items
+                        furnitureItems = state.value.furnitureItems + items,
+                        offset = state.value.offset+1
                     )
                 }
             }.onError { error->
